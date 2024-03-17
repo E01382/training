@@ -32,7 +32,7 @@
         mode: 0755
         state: directory
 
-    file:
+    - file:
         path: "/home/ubuntu/anj_test/test1.txt"
         owner: "ubuntu"
         group: "ubuntu"
