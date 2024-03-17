@@ -1,0 +1,57 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    - block:
+      - name: "install nginx on ubuntu"
+        apt:
+          name: nginx
+          state: latest
+
+      - name: "Make sure 'nginx' is started"
+        service:
+          name: nginx
+          state: restarted
+          enabled: yes
+
+      - name: "get nxinx status"
+        shell: "sudo systemctl status nginx"
+        register: nginx_result
+
+      - name: "Show nginx result"
+        debug:
+          msg: "{{ nginx_result.stdout_lines }}"
+      when: ansible_distribution == 'Centos'
+
+    - name: "File module, create directory"
+      file:
+        path: "/home/ubuntu/anj_test"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: 0755
+        state: directory
+
+    file:
+        path: "/home/ubuntu/anj_test/test1.txt"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: 0755
+        state: touch
+
+    - name: "Copy module"
+      copy:
+        src: "/home/ubuntu/anj/copy_file.txt"
+        dest: "/home/ubuntu/anj_test/copy_file.txt"
+        owner: ubuntu
+        group: ubuntu
+        mode: 0755
+
+    - name: "Command Module"
+      command: "ls -lrt"
+      register: command_output
+
+    - name: "print command results"
+      debug:
+        msg: "{{ command_output.stdout_lines }}"
+
