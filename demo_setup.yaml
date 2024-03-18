@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: "Get hostname of each nodes"
+    shell: "hostname -i"
+    register: hostname_output
+
+  - name: "debug"
+    debug:
+      msg: "{{ hostname_output.stdout_lines }}"
