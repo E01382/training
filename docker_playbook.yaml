@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: "Get docker image details"
+    shell: "sudo docker images"
+    register: output
+
+  - name: "debug"
+    debug:
+      msg: "{{ output.stdout_lines }}"
+
+  - name: "Get docker container details"
+    shell: "sudo docker ps -a"
+    register: output_container
+
+  - name: "debug"
+    debug:
+      msg: "{{ output_container.stdout_lines }}"
