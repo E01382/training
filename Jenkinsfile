@@ -13,7 +13,7 @@ pipeline {
         }
         stage(" Test") {
            steps {
-                ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory.ini', playbook: 'nginx.yaml'
+                ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory.ini', playbook: 'docker_playbook.yaml'
             }    
         }    
     }
