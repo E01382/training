@@ -6,12 +6,6 @@ pipeline {
         ANSIBLE_SCP_IF_SSH = 'True'
     }
     stages {
-        stage ("SCM checkout") {
-            steps {
-                git branch: 'main', credentialsId: 'git', url: 'https://github.com/E01382/training'
-                
-            }
-        }
         stage ("Build") {
             steps {
                 sh 'docker build -t myimage:$BUILD_NUMBER .'
